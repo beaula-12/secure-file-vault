@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <title>{{endUser}} Home</title>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>       
+        <style>
+            .divider:after,
+            .divider:before {
+                content: "";
+                flex: 1;
+                height: 1px;
+                background: #eee;
+            }
+            hr { 
+                padding: 0;
+                border: none; 
+                border-top: medium double #8c8c8c; 
+                color: #8c8c8c; 
+                text-align: center; 
+                } 
+            hr:after { 
+            content: "§"; 
+            display: inline-block; 
+            position: relative; 
+            top: -0.7em; 
+            font-size: 1.5em; 
+            padding: 0 0.25em; 
+            background: #fff; 
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/userhome">SECUREC</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+        
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                <a class="nav-link" href="/vf">View Files <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link active" href="/download">Verify <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="/logout">logout <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+            </div>
+        </nav>
+        <section class="vh-100">
+            <div class="container py-5 h-100">
+              <div class="row d-flex align-items-center justify-content-center h-100">
+                <div class="col-md-8 col-lg-7 col-xl-6">
+                  <img src="{{url_for('static', filename='secure_files.svg')}}" class="img-fluid" alt="Phone image">
+                  
+                  <h3>Hey ..{{session['username']}}.. , Download the files whose request approved by OWNERs</h3>
+                  <hr>
+                </div>
+                <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+                    <div class="form-outline mb-4">
+                        {% if filename %}
+                        <form action="/verify" method="post" enctype="multipart/form-data">
+                            <div class="form-floating mb-3 mt-3">
+                                <input class="form-control" id="filename" name="filename" value="{{filename}}"readonly></input>
+                                <label for="fname">File Name</label>
+                            </div>
+                            <div class="form-group">
+                                <div class="custom-file mb-3">
+                                    <input type="file" class="custom-file-input" id="customFile" name="inputImage" >
+                                    <label class="custom-file-label" for="customFile" id="chooseFile">Choose Image</label>
+                                </div>
+                            </div>
+                            
+                            
+                            
+                            
+                                <button type="submit" class="btn btn-outline-primary btn-lg btn-block">Submit</button>
+                            </div>
+                            <div class="form-group">
+                                <button type="reset" class="btn btn-secondary" onclick="removeFileName()">Reset</button>
+                            </div>
+                        </form>
+                        {% endif %}
+                    </div>
+                    <script>
+                                // Add the following code if you want the name of the file appear on select
+                                $(".custom-file-input").on("change", function() {
+                                var fileName = $(this).val().split("\\").pop();
+                                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+                                });
+                                function removeFileName(){
+                                    document.getElementById('chooseFile').innerHTML = 'Choose Image';
+                                }
+                                
+                    </script>
+                </div>
+              </div>
+            </div>
+          </section>
+    </body>
+</html>
